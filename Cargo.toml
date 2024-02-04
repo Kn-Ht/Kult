@@ -1,10 +1,20 @@
 [package]
-name = "Kult"
+name = "kult"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+opt-level = 3
+
 [dependencies]
 eframe = "0.25.0"
 egui = "0.25.0"
+
+# passgen.rs
+passwords = {git = "https://github.com/Kn-Ht/passwords/"}
+unit-conversions = "0.1.16"

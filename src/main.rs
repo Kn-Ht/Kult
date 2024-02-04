@@ -1,6 +1,8 @@
 // Hide console window on Windows in release mode
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+extern crate uom;
+
 mod app;
 mod apps;
 
@@ -24,7 +26,6 @@ fn main() {
 }
 
 #[cfg(target_family = "wasm")]
-#[wasm_bindgen::wasm_bindgen]
 fn main() {
     let web_options = eframe::WebOptions::default();
     wasm_bindgen_futures::spawn_local(async {

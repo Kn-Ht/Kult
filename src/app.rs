@@ -22,11 +22,7 @@ impl App {
     pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
         // Setup code (runs once)
 
-        if cfg!(target_family = "wasm") {
-            cc.egui_ctx.set_pixels_per_point(2.0);
-        } else {
-            cc.egui_ctx.set_pixels_per_point(1.0);
-        }
+        cc.egui_ctx.set_pixels_per_point(1.1);
 
         Self {
             help_shown: false,
@@ -41,7 +37,7 @@ impl App {
             .show(ctx, |ui| {
                 ui.horizontal(|ui| {
                     // Logo
-                    ui.heading(RichText::new(Self::TITLE).color(Color32::WHITE).strong());
+                    ui.heading(RichText::new(Self::TITLE).strong());
 
                     if ui
                         .small_button(RichText::new("?").strong().color(Color32::GREEN))

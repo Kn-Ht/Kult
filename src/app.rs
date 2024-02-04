@@ -1,12 +1,14 @@
 use egui::{vec2, Align2, Button, Color32, Label, RichText, Vec2};
 
 use crate::apps::passgen::Passgen;
+use crate::apps::unitconv::UnitConverter;
 
 pub struct App {
     help_shown: bool,
 
     // apps
     passgen: Passgen,
+    unitconv: UnitConverter,
 }
 
 impl App {
@@ -25,15 +27,15 @@ impl App {
         } else {
             cc.egui_ctx.set_pixels_per_point(1.0);
         }
-        
+
         Self {
             help_shown: false,
             passgen: Passgen::new(),
+            unitconv: UnitConverter::new(),
         }
     }
     // UI drawing functions
     fn draw_top_bar(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-
         egui::TopBottomPanel::top("TopBar")
             .exact_height(Self::TOPBAR_HEIGHT)
             .show(ctx, |ui| {
@@ -41,12 +43,25 @@ impl App {
                     // Logo
                     ui.heading(RichText::new(Self::TITLE).color(Color32::WHITE).strong());
 
-                    if ui.small_button(RichText::new("?").strong().color(Color32::GREEN)).clicked() {
+                    if ui
+                        .small_button(RichText::new("?").strong().color(Color32::GREEN))
+                        .clicked()
+                    {
                         self.help_shown = !self.help_shown;
                     }
 
-                    if ui.add(Button::new(self.passgen.title).min_size(Self::BTN_MIN_SIZE)).clicked() {
+                    if ui
+                        .add(Button::new(self.passgen.title).min_size(Self::BTN_MIN_SIZE))
+                        .clicked()
+                    {
                         self.passgen.shown = !self.passgen.shown;
+                    }
+
+                    if ui
+                        .add(Button::new(self.unitconv.title).min_size(Self::BTN_MIN_SIZE))
+                        .clicked()
+                    {
+                        self.unitconv.shown = !self.unitconv.shown;
                     }
                 });
             });
@@ -54,6 +69,7 @@ impl App {
 
     fn draw_windows(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         self.passgen.show(ctx, frame);
+        self.unitconv.show(ctx, frame);
 
         egui::Window::new("Help")
             .open(&mut self.help_shown)

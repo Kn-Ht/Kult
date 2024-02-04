@@ -18,3 +18,8 @@ egui = "0.25.0"
 # passgen.rs
 passwords = {git = "https://github.com/Kn-Ht/passwords/"}
 unit-conversions = "0.1.16"
+getrandom = {version = "0.2.12", features = ["js"]}
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen-futures = "0.4"
+
